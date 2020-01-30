@@ -50,7 +50,7 @@ export function loadGooglePlacesLibrary(apiKey, callback) {
   document.head.appendChild(element)
 }
 
-function onLibraryLoaded(event) {
+function onLibraryLoaded() {
   isLoadingLibrary = false
   let callback
   while (callback = callbacks.pop()) {
