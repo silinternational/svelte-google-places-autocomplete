@@ -2,11 +2,12 @@
 import { loadGooglePlacesLibrary } from './loader.js'
 
 export let apiKey
+export let options = undefined
 
 let inputField
 
 loadGooglePlacesLibrary(apiKey, () => {
-  const autocomplete = new window.google.maps.places.Autocomplete(inputField)
+  const autocomplete = new google.maps.places.Autocomplete(inputField, options)
 })
 </script>
 
