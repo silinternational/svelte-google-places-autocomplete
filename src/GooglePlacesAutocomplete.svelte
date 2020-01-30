@@ -10,4 +10,4 @@ loadGooglePlacesLibrary(apiKey, () => {
 })
 </script>
 
-<input bind:this={inputField} />
+<input bind:this={inputField} class={$$props.class} />
