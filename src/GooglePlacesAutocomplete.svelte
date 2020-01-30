@@ -13,7 +13,8 @@ loadGooglePlacesLibrary(apiKey, () => {
   const autocomplete = new google.maps.places.Autocomplete(inputField, options)
   autocomplete.addListener('place_changed', event => {
     dispatch('place_changed', {
-      placeResult: autocomplete.getPlace()
+      placeResult: autocomplete.getPlace(),
+      selectedPredictionText: inputField.value
     })
   })
 })
