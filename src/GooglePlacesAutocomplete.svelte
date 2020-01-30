@@ -4,6 +4,7 @@ import { createEventDispatcher } from 'svelte'
 
 export let apiKey
 export let options = undefined
+export let placeholder = undefined
 
 const dispatch = createEventDispatcher()
 
@@ -20,4 +21,4 @@ loadGooglePlacesLibrary(apiKey, () => {
 })
 </script>
 
-<input bind:this={inputField} class={$$props.class} />
+<input bind:this={inputField} class={$$props.class} {placeholder} />
