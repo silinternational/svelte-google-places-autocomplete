@@ -6,7 +6,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "publish": "npm publish --access public || (npm login && npm publish --access public)"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^6.0.0",
