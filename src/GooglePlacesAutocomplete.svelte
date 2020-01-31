@@ -21,6 +21,13 @@ onMount(() => {
     })
   })
 })
+
+function onChange() {
+  if (inputField.value === '') {
+    dispatch('place_changed', null)
+  }
+}
 </script>
 
-<input bind:this={inputField} class={$$props.class} {placeholder} />
+<input bind:this={inputField} class={$$props.class} on:change={onChange}
+       {placeholder} />
