@@ -1,12 +1,13 @@
 {
   "name": "@silintl/svelte-google-places-autocomplete",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "scripts": {
     "build": "rollup -c",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "publish": "npm publish --access public || (npm login && npm publish --access public)"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^6.0.0",
@@ -22,5 +23,6 @@
   "files": [
     "src",
     "dist"
-  ]
+  ],
+  "license": "MIT"
 }
