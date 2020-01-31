@@ -1,7 +1,7 @@
 let isLoadingLibrary = false
 
 /**
- * The list of callbacks, one from each GooglePlacesAutocmplete instance that requested the library before the library
+ * The list of callbacks, one from each GooglePlacesAutocomplete instance that requested the library before the library
  * had finished loading.
  */
 const callbacks = []
