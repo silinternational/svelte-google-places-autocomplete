@@ -1,5 +1,6 @@
 import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
+import livereload from "rollup-plugin-livereload";
 
 export default {
 	input: 'test/test.js',
@@ -11,6 +12,7 @@ export default {
 	},
 	plugins: [
 		svelte(),
-		resolve()
+		resolve(),
+		livereload('test'),
 	]
 };
