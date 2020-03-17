@@ -12,6 +12,14 @@ let locationInput
 let onPlaceChangeCallbacks = []
 let testPasses = null
 
+window.addEventListener("unhandledrejection", event => {
+  event.preventDefault();
+  
+  testPasses = false
+  showText(event.reason)
+  locationInput.blur()
+}, false);
+
 function onApiKeyProvided(event) {
   googlePlacesApiKey = event.target.value
 }
@@ -26,14 +34,8 @@ async function runTests() {
   locationInput = document.querySelector('input')
   locationInput.focus()
   
-  try {
-    await waitAMoment();
-    await runTest1()
-  } catch (e) {
-    testPasses = false
-    showText(e.message)
-    locationInput.blur()
-  }
+  await waitAMoment();
+  await runTest1()
 }
 
 async function runTest1() {
