@@ -42,6 +42,7 @@ async function runTest1() {
   return new Promise(async resolve => {
     showText('Please wait')
     await type('new')
+    await waitForSuggestions()
     showText('Please click on the first suggestion')
     whenPlaceChanges(() => {
       testPasses = (locationInput.value === 'New York, NY, USA')
@@ -80,6 +81,22 @@ function showText(text) {
 
 function clearText() {
   displayText = ''
+}
+
+async function waitForSuggestions() {
+  return new Promise(async (resolve, reject) => {
+    const timeoutHandle = setTimeout(
+      () => reject('Timed out waiting for suggestions to appear'),
+      2500
+    )
+    let suggestion = document.querySelector('.pac-item')
+    while (!suggestion) {
+      await waitAMoment()
+      suggestion = document.querySelector('.pac-item')
+    }
+    clearTimeout(timeoutHandle)
+    resolve()
+  })
 }
 
 function whenPlaceChanges(callback) {
