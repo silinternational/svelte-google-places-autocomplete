@@ -36,20 +36,48 @@ async function runTests() {
   
   await waitAMoment();
   await runTest1()
+  await runTest2()
 }
 
 async function runTest1() {
   return new Promise(async resolve => {
+    resetForNextTest()
+    
     showText('Please wait')
     await type('new')
     await waitForSuggestions()
-    showText('Please click on the first suggestion')
+    
     whenPlaceChanges(() => {
       testPasses = (locationInput.value === 'New York, NY, USA')
       clearText()
       resolve()
     })
+    
+    showText('Please click on the first suggestion')
   })
+}
+
+async function runTest2() {
+  return new Promise(async resolve => {
+    resetForNextTest()
+    
+    showText('Please wait')
+    await type('new')
+    await waitForSuggestions()
+    
+    whenPlaceChanges(() => {
+      testPasses = (locationInput.value === 'New York, NY, USA')
+      clearText()
+      resolve()
+    })
+    
+    await hitKey('Enter', 0, 13)
+  })
+}
+
+function resetForNextTest() {
+  locationInput.value = ''
+  testPasses = null
 }
 
 async function waitAMoment(milliseconds = 100) {
@@ -70,6 +98,17 @@ async function typeLetter(letter) {
       data: letter,
     })
     locationInput.value += letter
+    locationInput.dispatchEvent(simulatedEvent)
+    waitAMoment().then(resolve)
+  })
+}
+
+async function hitKey(key, charCode, keyCode) {
+  return new Promise(resolve => {
+    const simulatedEvent = new KeyboardEvent(
+      'keydown',
+      { key: key, charCode: charCode, keyCode: keyCode }
+    );
     locationInput.dispatchEvent(simulatedEvent)
     waitAMoment().then(resolve)
   })
