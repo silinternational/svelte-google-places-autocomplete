@@ -27,18 +27,25 @@ async function runTests() {
   input.focus()
   
   try {
-    await waitAMoment(750);
-    await type(input, 'new')
-    showText('Please click on the first suggestion')
-    whenPlaceChanges(() => {
-      testPasses = (input.value === 'New York, NY, USA')
-      clearText()
-    })
+    await waitAMoment();
+    await runTest1(input)
   } catch (e) {
     testPasses = false
     showText(e.message)
     input.blur()
   }
+}
+
+async function runTest1(input) {
+  return new Promise(async resolve => {
+    await type(input, 'new')
+    showText('Please click on the first suggestion')
+    whenPlaceChanges(() => {
+      testPasses = (input.value === 'New York, NY, USA')
+      clearText()
+      resolve()
+    })
+  })
 }
 
 async function waitAMoment(milliseconds = 100) {
