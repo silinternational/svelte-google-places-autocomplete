@@ -8,6 +8,7 @@ const options = {
 
 let displayText = 'Please enter your Google Places API Key'
 let googlePlacesApiKey
+let locationInput
 let onPlaceChangeCallbacks = []
 let testPasses = null
 
@@ -23,25 +24,25 @@ function onPlaceChanged(event) {
 }
 
 async function runTests() {
-  const input = document.querySelector('input')
-  input.focus()
+  locationInput = document.querySelector('input')
+  locationInput.focus()
   
   try {
     await waitAMoment();
-    await runTest1(input)
+    await runTest1()
   } catch (e) {
     testPasses = false
     showText(e.message)
-    input.blur()
+    locationInput.blur()
   }
 }
 
-async function runTest1(input) {
+async function runTest1() {
   return new Promise(async resolve => {
-    await type(input, 'new')
+    await type('new')
     showText('Please click on the first suggestion')
     whenPlaceChanges(() => {
-      testPasses = (input.value === 'New York, NY, USA')
+      testPasses = (locationInput.value === 'New York, NY, USA')
       clearText()
       resolve()
     })
@@ -52,21 +53,21 @@ async function waitAMoment(milliseconds = 100) {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 
-async function type(input, letters) {
+async function type(letters) {
   for (let i = 0; i < letters.length; i++) {
-    await typeLetter(input, letters[i])
+    await typeLetter(letters[i])
   }
 }
 
-async function typeLetter(input, letter) {
+async function typeLetter(letter) {
   return new Promise(resolve => {
     const simulatedEvent = new Event('input', {
       bubbles: true,
       cancelable: true,
       data: letter,
     })
-    input.value += letter
-    input.dispatchEvent(simulatedEvent)
+    locationInput.value += letter
+    locationInput.dispatchEvent(simulatedEvent)
     waitAMoment().then(resolve)
   })
 }
