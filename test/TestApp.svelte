@@ -14,7 +14,6 @@ let testPasses = null
 
 function onApiKeyProvided(event) {
   googlePlacesApiKey = event.target.value
-  showText('Please wait')
 }
 
 function onPlaceChanged(event) {
@@ -39,6 +38,7 @@ async function runTests() {
 
 async function runTest1() {
   return new Promise(async resolve => {
+    showText('Please wait')
     await type('new')
     showText('Please click on the first suggestion')
     whenPlaceChanges(() => {
