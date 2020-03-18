@@ -17,7 +17,7 @@ export async function runTests() {
       test.result = 'pass'
     } catch (e) {
       test.result = 'fail'
-      test.details = e.message
+      test.details = e.message || '(No details available)'
       break
     } finally {
       copyOfTests[i] = test
