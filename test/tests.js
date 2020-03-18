@@ -43,14 +43,4 @@ export default writable([
     go: () => hitKey('Tab', 0, 9),
     passed: () => get(locationInput).value === 'New York, NY, USA',
   },
-  {
-    name: `Type something, see suggestions, select one via Arrow keys, hit Space`,
-    setup: async () => {
-      await type('atl')
-      await waitForSuggestions()
-      return hitKey('ArrowDown', 0, 40)
-    },
-    go: () => hitKey(' ', 0, 32),
-    passed: () => get(locationInput).value === 'Atlanta, GA, USA',
-  },
 ])
