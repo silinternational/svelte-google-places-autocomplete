@@ -26,9 +26,9 @@ export async function runTests() {
     try {
       await runTest(test)
       test.result = 'pass'
-    } catch (e) {
+    } catch (error) {
       test.result = 'fail'
-      test.details = e.message || '(No details available)'
+      test.details = JSON.stringify(error)
       break
     } finally {
       copyOfTests[i] = test
