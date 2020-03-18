@@ -11,12 +11,23 @@ let error
 let googlePlacesApiKey
 let locationInput
 let onPlaceChangeCallbacks = []
-let testPasses = null
 const tests = [
   {
     name: `Type something, see suggestions, click on one`,
     setup: async () => await type('new').then(waitForSuggestions),
     go: () => showText('Please click on the first suggestion'),
+    passed: () => locationInput.value === 'New York, NY, USA',
+  },
+  {
+    name: `Type something, see suggestions, don't select any, hit Enter`,
+    setup: async () => await type('atl').then(waitForSuggestions),
+    go: () => hitKey('Enter', 0, 13),
+    passed: () => locationInput.value === 'Atlanta, GA, USA',
+  },
+  {
+    name: `Type something, see suggestions, don't select any, hit Tab`,
+    setup: async () => await type('new').then(waitForSuggestions),
+    go: () => hitKey('Tab', 0, 9),
     passed: () => locationInput.value === 'New York, NY, USA',
   },
 ]
@@ -60,6 +71,7 @@ async function runTests() {
 
 async function runTest(test) {
   return new Promise(async (resolve, reject) => {
+    resetForNextTest()
     await test.setup()
     
     whenPlaceChanges(() => {
@@ -71,45 +83,8 @@ async function runTest(test) {
   })
 }
 
-async function runTest2() {
-  return new Promise(async resolve => {
-    resetForNextTest()
-    
-    showText('Please wait')
-    await type('new')
-    await waitForSuggestions()
-    
-    whenPlaceChanges(() => {
-      testPasses = (locationInput.value === 'New York, NY, USA')
-      clearText()
-      resolve()
-    })
-    
-    await hitKey('Enter', 0, 13)
-  })
-}
-
-async function runTest3() {
-  return new Promise(async resolve => {
-    resetForNextTest()
-    
-    showText('Please wait')
-    await type('new')
-    await waitForSuggestions()
-    
-    whenPlaceChanges(() => {
-      testPasses = (locationInput.value === 'New York, NY, USA')
-      clearText()
-      resolve()
-    })
-    
-    await hitKey('Tab', 0, 9) 
-  })
-}
-
 function resetForNextTest() {
   locationInput.value = ''
-  testPasses = null
 }
 
 async function waitAMoment(milliseconds = 100) {
@@ -229,12 +204,12 @@ th {
     </tr>
   </thead>
   <tbody>
-    <tr>
-      {#each tests as test (test.name) }
+    {#each tests as test (test.name) }
+      <tr>
         <td style="width: 45%">{ test.name }</td>
         <td style="width: 10%" class="uppercase {test.result || ''}">{ test.result || '' }</td>
         <td style="width: 45%">{ test.details || '' }</td>
-      {/each}
-    </tr>
+      </tr>
+    {/each}
   </tbody>
 </table>
