@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from "rollup-plugin-livereload";
 
 export default {
-	input: 'test/test.js',
+	input: 'test/test-main.js',
 	output: {
 		sourcemap: true,
 		format: 'iife',
