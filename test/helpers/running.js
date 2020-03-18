@@ -32,7 +32,7 @@ export async function runTests() {
       break
     } finally {
       copyOfTests[i] = test
-      tests.set(copyOfTests)
+      tests.set(copyOfTests) // Force a re-evaluation of `$tests` elsewhere
     }
   }
   showText('(Done)')
