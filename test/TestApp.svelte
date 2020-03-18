@@ -37,6 +37,7 @@ async function runTests() {
   await waitAMoment();
   await runTest1()
   await runTest2()
+  await runTest3()
 }
 
 async function runTest1() {
@@ -72,6 +73,24 @@ async function runTest2() {
     })
     
     await hitKey('Enter', 0, 13)
+  })
+}
+
+async function runTest3() {
+  return new Promise(async resolve => {
+    resetForNextTest()
+    
+    showText('Please wait')
+    await type('new')
+    await waitForSuggestions()
+    
+    whenPlaceChanges(() => {
+      testPasses = (locationInput.value === 'New York, NY, USA')
+      clearText()
+      resolve()
+    })
+    
+    await hitKey('Tab', 0, 9) 
   })
 }
 
