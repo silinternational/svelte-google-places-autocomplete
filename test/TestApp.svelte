@@ -90,3 +90,5 @@ th {
     {/each}
   </tbody>
 </table>
+
+<button on:click={runTests}>Re-run tests</button>

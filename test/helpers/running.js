@@ -4,9 +4,20 @@ import { get } from 'svelte/store'
 import tests from '../tests'
 import { waitAMoment } from './waiting'
 
+export function resetTestResults() {
+  const copyOfTests = get(tests)
+  copyOfTests.forEach(test => {
+    delete test.result
+    delete test.details
+  })
+  tests.set(copyOfTests)
+}
+
 export async function runTests() {
   locationInput.set(document.querySelector('input'))
   get(locationInput).focus()
+  
+  resetTestResults()
   
   let copyOfTests = get(tests)
   await waitAMoment(1000)
