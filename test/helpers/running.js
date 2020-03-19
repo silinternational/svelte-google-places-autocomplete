@@ -42,7 +42,7 @@ async function runTest(test) {
   return new Promise(async (resolve, reject) => {
     const timeoutHandle = setTimeout(
       () => reject('Timed out waiting for test to finish running'),
-      5000
+      10000
     )
     resetForNextTest()
     await test.setup()
