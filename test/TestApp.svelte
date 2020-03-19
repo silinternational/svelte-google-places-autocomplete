@@ -96,4 +96,6 @@ th {
   </tbody>
 </table>
 
-<button on:click={runTests}>Re-run tests</button>
+{#if googlePlacesApiKey}
+  <button on:click={runTests}>Re-run tests</button>
+{/if}
