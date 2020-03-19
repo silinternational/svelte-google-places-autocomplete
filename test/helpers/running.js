@@ -35,7 +35,14 @@ export async function runTests() {
       tests.set(copyOfTests) // Force a re-evaluation of `$tests` elsewhere
     }
   }
-  showText('(Done)')
+  
+  const failedTests = copyOfTests.filter(test => test.result === 'fail')
+  if (failedTests.length > 0) {
+    const testOrTests = failedTests.length === 1 ? 'test' : 'tests'
+    showText(`${failedTests.length} ${testOrTests} failed`, 'fail')
+  } else {
+    showText('All tests passed', 'pass')
+  }
 }
 
 async function runTest(test) {

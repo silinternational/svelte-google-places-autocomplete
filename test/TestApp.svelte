@@ -1,6 +1,6 @@
 <script>
 import GooglePlacesAutocomplete from '../src/GooglePlacesAutocomplete.svelte'
-import { displayText, showText } from './helpers/instructions'
+import { displayText, displayTextCssClass, showText } from './helpers/instructions'
 import { locationInput, onPlaceChanged } from './helpers/interactions'
 import { runTests } from './helpers/running'
 import tests from './tests'
@@ -61,7 +61,7 @@ th {
 {/if}
 
 <div class="ui">
-  <p>{ $displayText }</p>
+  <p class={$displayTextCssClass}>{ $displayText }</p>
   
   {#if googlePlacesApiKey}
     <GooglePlacesAutocomplete apiKey={googlePlacesApiKey} {options}
