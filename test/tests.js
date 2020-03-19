@@ -49,12 +49,12 @@ export default writable([
     go: () => hitKey('Enter', 0, 13),
     expected: '',
   },
-  // {
-  //   name: `Type something, no suggestions, hit Tab`,
-  //   setup: async () => await type('atl').then(waitForSuggestions),
-  //   go: () => ,
-  //   passed: () => get(locationInput).value === 'Atlanta, GA, USA',
-  // },
+  {
+    name: `Type something, no suggestions, hit Tab`,
+    setup: async () => type('zzzzzz'),
+    go: () => hitKey('Tab', 0, 9),
+    expected: '',
+  },
   // {
   //   name: `Type something, no suggestions, hit Enter, empty field, leave field`,
   //   setup: async () => await type('new').then(waitForSuggestions),
