@@ -28,7 +28,7 @@ export async function runTests() {
       test.result = 'pass'
     } catch (error) {
       test.result = 'fail'
-      test.details = JSON.stringify(error)
+      test.details = (typeof error === 'string') ? error : JSON.stringify(error)
       break
     } finally {
       copyOfTests[i] = test
@@ -56,11 +56,15 @@ async function runTest(test) {
     
     whenPlaceChanges(() => {
       clearText()
-      if (test.passed()) {
-        clearTimeout(timeoutHandle)
+      clearTimeout(timeoutHandle)
+      const actualResult = get(locationInput).value
+      if (actualResult === test.expected) {
         resolve()
       } else {
-        reject()
+        reject(
+          `Expected ${JSON.stringify(test.expected)} ` +
+          `but found ${JSON.stringify(actualResult)}`
+        )
       }
     })
     
