@@ -17,6 +17,7 @@ async function typeLetter(letter) {
       cancelable: true,
       data: letter,
     })
+    inputHasFocus() || get(locationInput).focus()
     get(locationInput).value += letter
     get(locationInput).dispatchEvent(simulatedEvent)
     waitAMoment().then(resolve)
@@ -32,4 +33,8 @@ export async function hitKey(key, charCode, keyCode) {
     get(locationInput).dispatchEvent(simulatedEvent)
     waitAMoment().then(resolve)
   })
+}
+
+function inputHasFocus() {
+  return document.hasFocus() && (document.activeElement === get(locationInput))
 }
