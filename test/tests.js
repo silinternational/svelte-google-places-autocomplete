@@ -56,12 +56,6 @@ export default writable([
     expected: '',
   },
   // {
-  //   name: `Type something, no suggestions, hit Enter, empty field, leave field`,
-  //   setup: async () => await type('new').then(waitForSuggestions),
-  //   go: () => ,
-  //   passed: () => ,
-  // },
-  // {
   //   name: `Type something, hit Escape`,
   //   setup: async () => await type('atl').then(waitForSuggestions),
   //   go: () => ,
