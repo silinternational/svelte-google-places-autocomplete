@@ -24,7 +24,7 @@ showText('Please enter your Google Places API Key')
 
 function onApiKeyProvided(event) {
   googlePlacesApiKey = event.target.value
-  showText('Please wait')
+  showText('Loading Google Places API...')
 }
 </script>
 
