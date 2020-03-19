@@ -55,10 +55,10 @@ export default writable([
     go: () => hitKey('Tab', 0, 9),
     expected: '',
   },
-  // {
-  //   name: `Type something, hit Escape`,
-  //   setup: async () => await type('atl').then(waitForSuggestions),
-  //   go: () => ,
-  //   passed: () => get(locationInput).value === '',
-  // },
+  {
+    name: `Type something, see suggestions, hit Escape`,
+    setup: async () => await type('atl').then(waitForSuggestions),
+    go: () => hitKey('Escape', 0, 27),
+    expected: '',
+  },
 ])
