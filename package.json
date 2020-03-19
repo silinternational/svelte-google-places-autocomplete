@@ -1,18 +1,25 @@
 {
   "name": "@silintl/svelte-google-places-autocomplete",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "scripts": {
+    "autobuild": "rollup -c -w",
+    "autobuildTest": "rollup -c test/rollup.config.js -w",
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
-    "publish": "npm publish --access public || (npm login && npm publish --access public)"
+    "publish": "npm publish --access public || (npm login && npm publish --access public)",
+    "sirvTest": "sirv test --port 8086 --single --dev",
+    "test": "run-p autobuild autobuildTest sirvTest"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^6.0.0",
+    "npm-run-all": "^4.1.5",
     "rollup": "^1.20.0",
+    "rollup-plugin-livereload": "^1.0.4",
     "rollup-plugin-svelte": "^5.0.0",
+    "sirv-cli": "^0.4.5",
     "svelte": "^3.0.0"
   },
   "keywords": [
