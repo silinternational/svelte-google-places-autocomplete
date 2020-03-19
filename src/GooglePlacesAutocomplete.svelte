@@ -13,12 +13,15 @@ let inputField
 onMount(() => {
   loadGooglePlacesLibrary(apiKey, () => {
     const autocomplete = new google.maps.places.Autocomplete(inputField, options)
+    
     autocomplete.addListener('place_changed', () => {
       dispatch('place_changed', {
         place: autocomplete.getPlace(),
         text: inputField.value
       })
     })
+    
+    dispatch('ready')
   })
 })
 
