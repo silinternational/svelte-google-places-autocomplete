@@ -1,5 +1,5 @@
 
-export async function waitAMoment(milliseconds = 100) {
+export async function waitAMoment(milliseconds = 200) {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 

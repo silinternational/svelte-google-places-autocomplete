@@ -68,6 +68,7 @@ async function runTest(test) {
       }
     })
     
+    await waitAMoment()
     test.go()
   })
 }
