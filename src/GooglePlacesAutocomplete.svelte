@@ -15,22 +15,71 @@ onMount(() => {
     const autocomplete = new google.maps.places.Autocomplete(inputField, options)
     
     autocomplete.addListener('place_changed', () => {
-      dispatch('place_changed', {
-        place: autocomplete.getPlace(),
-        text: inputField.value
-      })
+      const place = autocomplete.getPlace()
+      if (hasLocationData(place)) {
+        dispatch('place_changed', {
+          place: place,
+          text: inputField.value
+        })
+      }
     })
     
     dispatch('ready')
   })
 })
 
+function emptyLocationField() {
+  inputField.value = ''
+  onChange()
+}
+
+function hasLocationData(place) {
+  const fieldsToLookFor = (options && options.fields) || ['geometry']
+  return place.hasOwnProperty(fieldsToLookFor[0])
+}
+
 function onChange() {
   if (inputField.value === '') {
     dispatch('place_changed', null)
   }
 }
+
+function onKeyDown(event) {
+  const suggestionsAreVisible = document.getElementsByClassName('pac-item').length
+  
+  if (event.key === 'Enter' || event.key === 'Tab') {
+    if (suggestionsAreVisible) {
+      const isSuggestionSelected = document.getElementsByClassName('pac-item-selected').length
+      if (!isSuggestionSelected) {
+        selectFirstSuggestion()
+      }
+    } else {
+      setTimeout(emptyLocationField, 10)
+    }
+  } else if (event.key === 'Escape') {
+    setTimeout(emptyLocationField, 10)
+  }
+  
+  if (suggestionsAreVisible) {
+    if (event.key === 'Enter') {
+      /* When suggestions are visible, don't let an 'Enter' submit a form (since
+       * the user is interacting with the list of suggestions at the time, not
+       * expecting their actions to affect the form as a whole). */
+      event.preventDefault()
+    }
+  }
+}
+
+function selectFirstSuggestion() {
+  // Simulate the 'down arrow' key in order to select the first suggestion:
+  // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events
+  const simulatedEvent = new KeyboardEvent(
+    'keydown',
+    { key: 'ArrowDown', code: 'ArrowDown', keyCode: 40 }
+  )
+  inputField.dispatchEvent(simulatedEvent)
+}
 </script>
 
 <input bind:this={inputField} class={$$props.class} on:change={onChange}
-       {placeholder} />
+       on:keydown={onKeyDown} {placeholder} />
