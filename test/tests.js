@@ -43,4 +43,28 @@ export default writable([
     go: () => hitKey('Tab', 0, 9),
     expected: 'New York, NY, USA',
   },
+  {
+    name: `Type something, no suggestions, hit Enter`,
+    setup: async () => type('zzzzz'),
+    go: () => hitKey('Enter', 0, 13),
+    expected: '',
+  },
+  // {
+  //   name: `Type something, no suggestions, hit Tab`,
+  //   setup: async () => await type('atl').then(waitForSuggestions),
+  //   go: () => ,
+  //   passed: () => get(locationInput).value === 'Atlanta, GA, USA',
+  // },
+  // {
+  //   name: `Type something, no suggestions, hit Enter, empty field, leave field`,
+  //   setup: async () => await type('new').then(waitForSuggestions),
+  //   go: () => ,
+  //   passed: () => ,
+  // },
+  // {
+  //   name: `Type something, hit Escape`,
+  //   setup: async () => await type('atl').then(waitForSuggestions),
+  //   go: () => ,
+  //   passed: () => get(locationInput).value === '',
+  // },
 ])
