@@ -8,7 +8,7 @@ export default writable([
   {
     name: `Type something, see suggestions, click on one`,
     setup: async () => await type('new').then(waitForSuggestions),
-    go: () => showText('Please click on the first suggestion'),
+    go: () => showText('Please click on the first suggestion', 'command'),
     passed: () => get(locationInput).value === 'New York, NY, USA',
   },
   {

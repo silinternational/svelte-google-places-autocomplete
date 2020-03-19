@@ -20,7 +20,7 @@ window.addEventListener("unhandledrejection", event => {
   $locationInput.blur()
 }, false);
 
-showText('Please enter your Google Places API Key')
+showText('Please enter your Google Places API Key', 'command')
 
 function onApiKeyProvided(event) {
   googlePlacesApiKey = event.target.value
@@ -34,6 +34,9 @@ html {
   height: 100%;
 }
 
+.command {
+  color: blue;
+}
 .error,
 .fail {
   color: red;
