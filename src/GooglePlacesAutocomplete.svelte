@@ -16,6 +16,11 @@ onMount(() => {
     
     autocomplete.addListener('place_changed', () => {
       const place = autocomplete.getPlace()
+      
+      // There are circumstances where the place_changed event fires, but we
+      // were NOT given location data. I only want to propagate the event if we
+      // truly received location data from Google.
+      // See the `Type something, no suggestions, hit Enter` test case.
       if (hasLocationData(place)) {
         dispatch('place_changed', {
           place: place,
