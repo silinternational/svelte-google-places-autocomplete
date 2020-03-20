@@ -5,6 +5,7 @@ import { createEventDispatcher, onMount } from 'svelte'
 export let apiKey
 export let options = undefined
 export let placeholder = undefined
+export let value = ''
 
 const dispatch = createEventDispatcher()
 
@@ -87,4 +88,4 @@ function selectFirstSuggestion() {
 </script>
 
 <input bind:this={inputField} class={$$props.class} on:change={onChange}
-       on:keydown={onKeyDown} {placeholder} />
+       on:keydown={onKeyDown} {placeholder} {value} />
