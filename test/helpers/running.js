@@ -60,6 +60,11 @@ async function runTest(test) {
     resetForNextTest()
     await test.setup()
     
+    // Ensure any `place_changed` events that Google will fire in response to
+    // our test setup have already passed, so that we will get accurate results
+    // regarding the final location value returned.
+    await waitAMoment(1000)
+    
     whenPlaceChanges(location => {
       clearText()
       clearTimeout(timeoutHandle)
