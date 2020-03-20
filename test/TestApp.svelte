@@ -87,7 +87,7 @@ th {
   <tbody>
     {#each $tests as test (test.name) }
       <tr>
-        <td>{ test.name }</td>
+        <td class="{test.result || ''}">{ test.name }</td>
         <td>{ JSON.stringify(test.expected) }</td>
         <td class="uppercase {test.result || ''}">{ test.result || '' }</td>
         <td>{ test.details || '' }</td>
