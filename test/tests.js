@@ -24,6 +24,16 @@ export default writable([
     expected: 'New York, NY, USA',
   },
   {
+    name: `Type something, see suggestions, don't select any, hit Enter, hit Tab`,
+    setup: async () => {
+      await type('atl')
+      await waitForSuggestions()
+      return hitKey('Enter', 0, 13)
+    },
+    go: () => hitKey('Tab', 0, 9),
+    expected: 'Atlanta, GA, USA',
+  },
+  {
     name: `Type something, see suggestions, select one via Arrow keys, hit Enter`,
     setup: async () => {
       await type('atl')
