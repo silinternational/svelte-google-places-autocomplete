@@ -2,7 +2,7 @@
 import GooglePlacesAutocomplete from '../src/GooglePlacesAutocomplete.svelte'
 import { displayText, displayTextCssClass, showText } from './helpers/instructions'
 import { locationInput, onPlaceChanged } from './helpers/interactions'
-import { runTests } from './helpers/running'
+import { running, runTests } from './helpers/running'
 import tests from './tests'
 
 const options = {
@@ -97,5 +97,5 @@ th {
 </table>
 
 {#if googlePlacesApiKey}
-  <button on:click={runTests}>Re-run tests</button>
+  <button on:click={runTests} disabled={$running}>Re-run tests</button>
 {/if}

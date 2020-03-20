@@ -1,8 +1,10 @@
 import { clearText, showText } from './instructions'
 import { locationInput, whenPlaceChanges } from './interactions'
-import { get } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 import tests from '../tests'
 import { waitAMoment } from './waiting'
+
+export const running = new writable(false)
 
 export function resetTestResults() {
   const copyOfTests = get(tests)
@@ -14,6 +16,8 @@ export function resetTestResults() {
 }
 
 export async function runTests() {
+  running.set(true)
+  
   locationInput.set(document.querySelector('input'))
   get(locationInput).focus()
   
@@ -43,6 +47,8 @@ export async function runTests() {
   } else {
     showText('All tests passed', 'pass')
   }
+  
+  running.set(false)
 }
 
 async function runTest(test) {
