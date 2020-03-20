@@ -60,10 +60,10 @@ async function runTest(test) {
     resetForNextTest()
     await test.setup()
     
-    whenPlaceChanges(() => {
+    whenPlaceChanges(location => {
       clearText()
       clearTimeout(timeoutHandle)
-      const actualResult = get(locationInput).value
+      const actualResult = (location && location.text) || ''
       if (actualResult === test.expected) {
         resolve()
       } else {
