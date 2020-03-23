@@ -36,6 +36,18 @@ export default writable([
     expected: 'Atlanta, GA, USA',
   },
   {
+    name: `Type something, see suggestions, don't select any, hit Enter, hit Enter`,
+    setup: async () => {
+      await type('new')
+      await waitForSuggestions()
+      return hitKey('Enter', 0, 13)
+    },
+    
+    // Since this test shouldn't trigger a place_changed event, explicitly check the results.
+    go: () => hitKey('Enter', 0, 13).then(checkTestResultAfterAMoment),
+    expected: 'New York, NY, USA',
+  },
+  {
     name: `Type something, see suggestions, select one via Arrow keys, hit Enter`,
     setup: async () => {
       await type('atl')
