@@ -1,5 +1,5 @@
 import { clearText, showText } from './instructions'
-import { locationInput, whenPlaceChanges } from './interactions'
+import { locationInput, resultingLocation, whenDone } from './interactions'
 import { get, writable } from 'svelte/store'
 import tests from '../tests'
 import { waitAMoment } from './waiting'
@@ -65,16 +65,15 @@ async function runTest(test) {
     // regarding the final location value returned.
     await waitAMoment(1000)
     
-    whenPlaceChanges(location => {
+    whenDone(resultingLocationName => {
       clearText()
       clearTimeout(timeoutHandle)
-      const actualResult = (location && location.text) || ''
-      if (actualResult === test.expected) {
+      if (resultingLocationName === test.expected) {
         resolve()
       } else {
         reject(
           `Expected ${JSON.stringify(test.expected)} ` +
-          `but found ${JSON.stringify(actualResult)}`
+          `but found ${JSON.stringify(resultingLocationName)}`
         )
       }
     })
@@ -86,4 +85,6 @@ async function runTest(test) {
 
 function resetForNextTest() {
   get(locationInput).value = ''
+  resultingLocation.set(null)
+  whenDone(Function())
 }

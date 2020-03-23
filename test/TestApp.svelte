@@ -1,7 +1,7 @@
 <script>
 import GooglePlacesAutocomplete from '../src/GooglePlacesAutocomplete.svelte'
 import { displayText, displayTextCssClass, showText } from './helpers/instructions'
-import { locationInput, onPlaceChanged } from './helpers/interactions'
+import { checkTestResult, locationInput, resultingLocation } from './helpers/interactions'
 import { running, runTests } from './helpers/running'
 import tests from './tests'
 
@@ -25,6 +25,11 @@ showText('Please enter your Google Places API Key', 'command')
 function onApiKeyProvided(event) {
   googlePlacesApiKey = event.target.value
   showText('Loading Google Places API...')
+}
+
+function onPlaceChanged(event) {
+  $resultingLocation = event.detail
+  checkTestResult()
 }
 </script>
 

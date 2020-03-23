@@ -1,7 +1,7 @@
 import { showText } from "./helpers/instructions"
-import { locationInput } from './helpers/interactions'
+import { checkTestResultAfterAMoment, locationInput } from './helpers/interactions'
 import { hitKey, type } from './helpers/typing'
-import { waitForSuggestions } from './helpers/waiting'
+import { waitAMoment, waitForSuggestions } from './helpers/waiting'
 import { get, writable } from 'svelte/store'
 
 export default writable([
@@ -30,7 +30,9 @@ export default writable([
       await waitForSuggestions()
       return hitKey('Enter', 0, 13)
     },
-    go: () => hitKey('Tab', 0, 9),
+    
+    // Since this test shouldn't trigger a place_changed event, explicitly check the results.
+    go: () => hitKey('Tab', 0, 9).then(checkTestResultAfterAMoment),
     expected: 'Atlanta, GA, USA',
   },
   {

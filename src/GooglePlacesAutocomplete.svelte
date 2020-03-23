@@ -60,7 +60,7 @@ function onKeyDown(event) {
       if (!isSuggestionSelected) {
         selectFirstSuggestion()
       }
-    } else {
+    } else if (doesNotMatchSelectedLocation(inputField.value)) {
       setTimeout(emptyLocationField, 10)
     }
   } else if (event.key === 'Escape') {
@@ -90,6 +90,11 @@ function selectFirstSuggestion() {
 function setSelectedLocation(data) {
   selectedLocation = data
   dispatch('place_changed', selectedLocation)
+}
+
+function doesNotMatchSelectedLocation(value) {
+  const selectedLocationText = (selectedLocation && selectedLocation.text) || null
+  return selectedLocationText !== value
 }
 </script>
 
