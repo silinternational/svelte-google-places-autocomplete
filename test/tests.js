@@ -48,6 +48,32 @@ export default writable([
     expected: 'New York, NY, USA',
   },
   {
+    name: `Type something, see suggestions, don't select any, hit Enter, ` +
+          `type something else, see no suggestions, hit Tab`,
+    setup: async () => {
+      await type('atl')
+      await waitForSuggestions()
+      await hitKey('Enter', 0, 13)
+      await type('zzzzzzz')
+      return waitAMoment()
+    },
+    go: () => hitKey('Tab', 0, 9),
+    expected: '',
+  },
+  {
+    name: `Type something, see suggestions, don't select any, hit Enter, ` +
+          `type something else, see no suggestions, hit Enter`,
+    setup: async () => {
+      await type('new')
+      await waitForSuggestions()
+      await hitKey('Enter', 0, 13)
+      await type('zzzzzzzz')
+      return waitAMoment()
+    },
+    go: () => hitKey('Enter', 0, 13),
+    expected: '',
+  },
+  {
     name: `Type something, see suggestions, select one via Arrow keys, hit Enter`,
     setup: async () => {
       await type('atl')
