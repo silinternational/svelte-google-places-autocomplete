@@ -3,6 +3,7 @@ import { waitAMoment } from "./waiting";
 
 export const locationInput = new writable(null)
 export const resultingLocation = new writable(null)
+export const externalValue = new writable('')
 
 let onTestDoneCallback = Function()
 
@@ -30,6 +31,26 @@ export async function checkTestResultAfterAMoment() {
 export function getResultingLocationName() {
   const resultingLocationData = get(resultingLocation) || {}
   return resultingLocationData.text || ''
+}
+
+/**
+ * Pass in a value (the way a consumer of this component would).
+ *
+ * NOTE: Since the ability to pass in a value is to allow situations where the
+ * Svelte code using this component needs to inject a location name into this,
+ * calling this method also sets the value we use for storing what the consumer
+ * has (aka. the "resulting value").
+ *
+ * @param value
+ */
+export async function passInValue(value) {
+  resultingLocation.set({
+    text: value,
+  })
+  externalValue.set(value)
+  
+  // Leave it there long enough to see during the tests (minimum: after next tick).
+  return waitAMoment(500)
 }
 
 export function whenDone(callback) {

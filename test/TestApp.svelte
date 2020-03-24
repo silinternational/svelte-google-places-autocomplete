@@ -1,7 +1,7 @@
 <script>
 import GooglePlacesAutocomplete from '../src/GooglePlacesAutocomplete.svelte'
 import { displayText, displayTextCssClass, showText } from './helpers/instructions'
-import { checkTestResult, locationInput, resultingLocation } from './helpers/interactions'
+import { checkTestResult, locationInput, resultingLocation, externalValue } from './helpers/interactions'
 import { running, runTests } from './helpers/running'
 import tests from './tests'
 
@@ -74,7 +74,7 @@ th {
   {#if googlePlacesApiKey}
     <GooglePlacesAutocomplete apiKey={googlePlacesApiKey} {options}
                               on:place_changed={onPlaceChanged}
-                              on:ready={runTests} />
+                              on:ready={runTests} value={$externalValue} />
   {:else}
     <input on:change={onApiKeyProvided} />
   {/if}
