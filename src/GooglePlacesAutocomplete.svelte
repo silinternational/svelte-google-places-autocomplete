@@ -10,7 +10,7 @@ export let value = ''
 const dispatch = createEventDispatcher()
 
 let inputField
-let selectedLocation = null
+$: selectedLocationName = value || ''
 
 onMount(() => {
   loadGooglePlacesLibrary(apiKey, () => {
@@ -88,13 +88,12 @@ function selectFirstSuggestion() {
 }
 
 function setSelectedLocation(data) {
-  selectedLocation = data
-  dispatch('place_changed', selectedLocation)
+  selectedLocationName = (data && data.text) || ''
+  dispatch('place_changed', data)
 }
 
 function doesNotMatchSelectedLocation(value) {
-  const selectedLocationText = (selectedLocation && selectedLocation.text) || null
-  return selectedLocationText !== value
+  return selectedLocationName !== value
 }
 </script>
 
