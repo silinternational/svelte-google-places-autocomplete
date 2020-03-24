@@ -90,12 +90,12 @@ th {
     </tr>
   </thead>
   <tbody>
-    {#each $tests as test (test.name) }
+    {#each $tests as { name, expected, result, details } (name) }
       <tr>
-        <td class="{test.result || ''}">{ test.name }</td>
-        <td>{ JSON.stringify(test.expected) }</td>
-        <td class="uppercase {test.result || ''}">{ test.result || '' }</td>
-        <td>{ test.details || '' }</td>
+        <td class={result}>{ name }</td>
+        <td>{ JSON.stringify(expected) }</td>
+        <td class="uppercase {result}">{ result || '' }</td>
+        <td>{ details || '' }</td>
       </tr>
     {/each}
   </tbody>
