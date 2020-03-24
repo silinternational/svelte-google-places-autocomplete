@@ -5,6 +5,7 @@ import { waitAMoment } from './waiting'
 
 export async function type(letters) {
   showText('Please wait')
+  get(locationInput).value = ''
   for (let i = 0; i < letters.length; i++) {
     await typeLetter(letters[i])
   }

@@ -1,7 +1,7 @@
 import { showText } from "./helpers/instructions"
-import { locationInput } from './helpers/interactions'
+import { checkTestResultAfterAMoment, locationInput } from './helpers/interactions'
 import { hitKey, type } from './helpers/typing'
-import { waitForSuggestions } from './helpers/waiting'
+import { waitAMoment, waitForSuggestions } from './helpers/waiting'
 import { get, writable } from 'svelte/store'
 
 export default writable([
@@ -22,6 +22,56 @@ export default writable([
     setup: async () => await type('new').then(waitForSuggestions),
     go: () => hitKey('Tab', 0, 9),
     expected: 'New York, NY, USA',
+  },
+  {
+    name: `Type something, see suggestions, don't select any, hit Enter, hit Tab`,
+    setup: async () => {
+      await type('atl')
+      await waitForSuggestions()
+      return hitKey('Enter', 0, 13)
+    },
+    
+    // Since this test shouldn't trigger a place_changed event, explicitly check the results.
+    go: () => hitKey('Tab', 0, 9).then(checkTestResultAfterAMoment),
+    expected: 'Atlanta, GA, USA',
+  },
+  {
+    name: `Type something, see suggestions, don't select any, hit Enter, hit Enter`,
+    setup: async () => {
+      await type('new')
+      await waitForSuggestions()
+      return hitKey('Enter', 0, 13)
+    },
+    
+    // Since this test shouldn't trigger a place_changed event, explicitly check the results.
+    go: () => hitKey('Enter', 0, 13).then(checkTestResultAfterAMoment),
+    expected: 'New York, NY, USA',
+  },
+  {
+    name: `Type something, see suggestions, don't select any, hit Enter, ` +
+          `type something else, see no suggestions, hit Tab`,
+    setup: async () => {
+      await type('atl')
+      await waitForSuggestions()
+      await hitKey('Enter', 0, 13)
+      await type('zzzzzzz')
+      return waitAMoment()
+    },
+    go: () => hitKey('Tab', 0, 9),
+    expected: '',
+  },
+  {
+    name: `Type something, see suggestions, don't select any, hit Enter, ` +
+          `type something else, see no suggestions, hit Enter`,
+    setup: async () => {
+      await type('new')
+      await waitForSuggestions()
+      await hitKey('Enter', 0, 13)
+      await type('zzzzzzzz')
+      return waitAMoment()
+    },
+    go: () => hitKey('Enter', 0, 13),
+    expected: '',
   },
   {
     name: `Type something, see suggestions, select one via Arrow keys, hit Enter`,
