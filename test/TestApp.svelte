@@ -69,7 +69,7 @@ th {
 {/if}
 
 <div class="ui">
-  <p class={$displayTextCssClass}>{ $displayText }</p>
+  <p class={$displayTextCssClass}>{ $displayText || '...' }</p>
   
   {#if googlePlacesApiKey}
     <GooglePlacesAutocomplete apiKey={googlePlacesApiKey} {options}
