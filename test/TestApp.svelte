@@ -1,7 +1,7 @@
 <script>
 import GooglePlacesAutocomplete from '../src/GooglePlacesAutocomplete.svelte'
 import { displayText, displayTextCssClass, showText } from './helpers/instructions'
-import { checkTestResult, locationInput, resultingLocation } from './helpers/interactions'
+import { checkTestResult, locationInput, resultingLocation, externalValue } from './helpers/interactions'
 import { running, runTests } from './helpers/running'
 import tests from './tests'
 
@@ -69,12 +69,12 @@ th {
 {/if}
 
 <div class="ui">
-  <p class={$displayTextCssClass}>{ $displayText }</p>
+  <p class={$displayTextCssClass}>{ $displayText || '...' }</p>
   
   {#if googlePlacesApiKey}
     <GooglePlacesAutocomplete apiKey={googlePlacesApiKey} {options}
                               on:place_changed={onPlaceChanged}
-                              on:ready={runTests} />
+                              on:ready={runTests} value={$externalValue} />
   {:else}
     <input on:change={onApiKeyProvided} />
   {/if}
@@ -90,12 +90,12 @@ th {
     </tr>
   </thead>
   <tbody>
-    {#each $tests as test (test.name) }
+    {#each $tests as { name, expected, result, details } (name) }
       <tr>
-        <td class="{test.result || ''}">{ test.name }</td>
-        <td>{ JSON.stringify(test.expected) }</td>
-        <td class="uppercase {test.result || ''}">{ test.result || '' }</td>
-        <td>{ test.details || '' }</td>
+        <td class={result}>{ name }</td>
+        <td>{ JSON.stringify(expected) }</td>
+        <td class="uppercase {result}">{ result || '' }</td>
+        <td>{ details || '' }</td>
       </tr>
     {/each}
   </tbody>
