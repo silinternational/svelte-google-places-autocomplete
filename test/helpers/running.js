@@ -1,8 +1,10 @@
 import { clearText, showText } from './instructions'
-import { locationInput, whenPlaceChanges } from './interactions'
-import { get } from 'svelte/store'
+import { locationInput, resultingLocation, whenDone } from './interactions'
+import { get, writable } from 'svelte/store'
 import tests from '../tests'
 import { waitAMoment } from './waiting'
+
+export const running = new writable(false)
 
 export function resetTestResults() {
   const copyOfTests = get(tests)
@@ -14,6 +16,8 @@ export function resetTestResults() {
 }
 
 export async function runTests() {
+  running.set(true)
+  
   locationInput.set(document.querySelector('input'))
   get(locationInput).focus()
   
@@ -43,6 +47,8 @@ export async function runTests() {
   } else {
     showText('All tests passed', 'pass')
   }
+  
+  running.set(false)
 }
 
 async function runTest(test) {
@@ -54,16 +60,20 @@ async function runTest(test) {
     resetForNextTest()
     await test.setup()
     
-    whenPlaceChanges(() => {
+    // Ensure any `place_changed` events that Google will fire in response to
+    // our test setup have already passed, so that we will get accurate results
+    // regarding the final location value returned.
+    await waitAMoment(1000)
+    
+    whenDone(resultingLocationName => {
       clearText()
       clearTimeout(timeoutHandle)
-      const actualResult = get(locationInput).value
-      if (actualResult === test.expected) {
+      if (resultingLocationName === test.expected) {
         resolve()
       } else {
         reject(
           `Expected ${JSON.stringify(test.expected)} ` +
-          `but found ${JSON.stringify(actualResult)}`
+          `but found ${JSON.stringify(resultingLocationName)}`
         )
       }
     })
@@ -75,4 +85,6 @@ async function runTest(test) {
 
 function resetForNextTest() {
   get(locationInput).value = ''
+  resultingLocation.set(null)
+  whenDone(Function())
 }

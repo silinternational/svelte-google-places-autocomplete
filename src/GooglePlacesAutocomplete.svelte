@@ -10,6 +10,7 @@ export let value = ''
 const dispatch = createEventDispatcher()
 
 let inputField
+$: selectedLocationName = value || ''
 
 onMount(() => {
   loadGooglePlacesLibrary(apiKey, () => {
@@ -23,7 +24,7 @@ onMount(() => {
       // truly received location data from Google.
       // See the `Type something, no suggestions, hit Enter` test case.
       if (hasLocationData(place)) {
-        dispatch('place_changed', {
+        setSelectedLocation({
           place: place,
           text: inputField.value
         })
@@ -46,7 +47,7 @@ function hasLocationData(place) {
 
 function onChange() {
   if (inputField.value === '') {
-    dispatch('place_changed', null)
+    setSelectedLocation(null)
   }
 }
 
@@ -59,7 +60,7 @@ function onKeyDown(event) {
       if (!isSuggestionSelected) {
         selectFirstSuggestion()
       }
-    } else {
+    } else if (doesNotMatchSelectedLocation(inputField.value)) {
       setTimeout(emptyLocationField, 10)
     }
   } else if (event.key === 'Escape') {
@@ -84,6 +85,15 @@ function selectFirstSuggestion() {
     { key: 'ArrowDown', code: 'ArrowDown', keyCode: 40 }
   )
   inputField.dispatchEvent(simulatedEvent)
+}
+
+function setSelectedLocation(data) {
+  selectedLocationName = (data && data.text) || ''
+  dispatch('place_changed', data)
+}
+
+function doesNotMatchSelectedLocation(value) {
+  return selectedLocationName !== value
 }
 </script>
 

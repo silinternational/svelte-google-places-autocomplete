@@ -1,8 +1,8 @@
 <script>
 import GooglePlacesAutocomplete from '../src/GooglePlacesAutocomplete.svelte'
 import { displayText, displayTextCssClass, showText } from './helpers/instructions'
-import { locationInput, onPlaceChanged } from './helpers/interactions'
-import { runTests } from './helpers/running'
+import { checkTestResult, locationInput, resultingLocation, externalValue } from './helpers/interactions'
+import { running, runTests } from './helpers/running'
 import tests from './tests'
 
 const options = {
@@ -25,6 +25,11 @@ showText('Please enter your Google Places API Key', 'command')
 function onApiKeyProvided(event) {
   googlePlacesApiKey = event.target.value
   showText('Loading Google Places API...')
+}
+
+function onPlaceChanged(event) {
+  $resultingLocation = event.detail
+  checkTestResult()
 }
 </script>
 
@@ -64,12 +69,12 @@ th {
 {/if}
 
 <div class="ui">
-  <p class={$displayTextCssClass}>{ $displayText }</p>
+  <p class={$displayTextCssClass}>{ $displayText || '...' }</p>
   
   {#if googlePlacesApiKey}
     <GooglePlacesAutocomplete apiKey={googlePlacesApiKey} {options}
                               on:place_changed={onPlaceChanged}
-                              on:ready={runTests} />
+                              on:ready={runTests} value={$externalValue} />
   {:else}
     <input on:change={onApiKeyProvided} />
   {/if}
@@ -85,17 +90,17 @@ th {
     </tr>
   </thead>
   <tbody>
-    {#each $tests as test (test.name) }
+    {#each $tests as { name, expected, result, details } (name) }
       <tr>
-        <td>{ test.name }</td>
-        <td>{ JSON.stringify(test.expected) }</td>
-        <td class="uppercase {test.result || ''}">{ test.result || '' }</td>
-        <td>{ test.details || '' }</td>
+        <td class={result}>{ name }</td>
+        <td>{ JSON.stringify(expected) }</td>
+        <td class="uppercase {result}">{ result || '' }</td>
+        <td>{ details || '' }</td>
       </tr>
     {/each}
   </tbody>
 </table>
 
 {#if googlePlacesApiKey}
-  <button on:click={runTests}>Re-run tests</button>
+  <button on:click={runTests} disabled={$running}>Re-run tests</button>
 {/if}
