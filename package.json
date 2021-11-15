@@ -1,6 +1,6 @@
 {
   "name": "@silintl/svelte-google-places-autocomplete",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A minimal port of the [Google Places Autocomplete API](https://developers.google.com/maps/documentation/javascript/places-autocomplete) as a Svelte component.",
   "repository": {
     "type": "git",
@@ -18,7 +18,6 @@
     "autobuildTest": "rollup -c test/rollup.config.js -w",
     "build": "rollup -c",
     "prepublishOnly": "npm run build",
-    "publish": "npm publish --access public || (npm login && npm publish --access public)",
     "sirvTest": "sirv test --port 8086 --single --dev",
     "test": "run-p autobuild autobuildTest sirvTest"
   },
