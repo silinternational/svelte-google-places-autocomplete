@@ -56,7 +56,7 @@ When a location is selected,
 
 ### ready
 Fired when the component has initialized, the Google Places API has been loaded,
-and is this component is therefore ready for user interaction.
+and this component is therefore ready for user interaction.
 
 ## Tests
 
