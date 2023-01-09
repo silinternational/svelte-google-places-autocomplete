@@ -6,6 +6,13 @@ as a Svelte component.
 
 Inspired largely by [beyonk-adventures/svelte-googlemaps](https://github.com/beyonk-adventures/svelte-googlemaps).
 
+## Google API Restrictions
+
+If you restrict the Google API key you use for this (recommended), ensure you allow at least the following two APIs, since this component needs them in order to fully function:
+
+* Maps JavaScript API
+* Places API
+
 ## Example usage
 
 ```svelte
