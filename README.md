@@ -78,3 +78,7 @@ and this component is therefore ready for user interaction.
 ### Modifying the tests
 
 The tests are defined in `test/tests.js`. See that file for examples.
+
+## Install with [npm](https://www.npmjs.com/package/@silintl/svelte-google-places-autocomplete)
+
+    $ npm install @silintl/svelte-google-places-autocomplete
