@@ -6,6 +6,8 @@ export let apiKey
 export let options = undefined
 export let placeholder = undefined
 export let value = ''
+export let required = false;
+export let pattern = '';
 
 const dispatch = createEventDispatcher()
 
@@ -98,4 +100,4 @@ function doesNotMatchSelectedLocation(value) {
 </script>
 
 <input bind:this={inputField} class={$$props.class} on:change={onChange}
-       on:keydown={onKeyDown} {placeholder} {value} />
+       on:keydown={onKeyDown} {placeholder} {value} {required} {pattern}/>
