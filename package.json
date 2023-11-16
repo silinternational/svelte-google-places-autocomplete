@@ -1,15 +1,15 @@
 {
-  "name": "@beyowi/svelte-google-places-autocomplete",
-  "version": "1.1.8",
+  "name": "@silintl/svelte-google-places-autocomplete",
+  "version": "1.1.6",
   "description": "A minimal port of the [Google Places Autocomplete API](https://developers.google.com/maps/documentation/javascript/places-autocomplete) as a Svelte component.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beyowi/svelte-google-places-autocomplete.git"
+    "url": "git+https://github.com/silinternational/svelte-google-places-autocomplete.git"
   },
   "bugs": {
-    "url": "https://github.com/beyowi/svelte-google-places-autocomplete/issues"
+    "url": "https://github.com/silinternational/svelte-google-places-autocomplete/issues"
   },
-  "homepage": "https://github.com/beyowi/svelte-google-places-autocomplete#readme",
+  "homepage": "https://github.com/silinternational/svelte-google-places-autocomplete#readme",
   "svelte": "src/index.js",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
