@@ -29,7 +29,9 @@ let locationName = localStorage.get('locationName') || ''
 <GooglePlacesAutocomplete apiKey={googlePlacesApiKey} class="form-control"
                           on:place_changed={onPlaceChanged} {options}
                           on:ready={onReady} {placeholder}
-                          value={locationName} />
+                          value={locationName}
+                          required
+                          pattern="[a-zA-Z ]+" />
 ```
 
 ## Parameters
@@ -50,11 +52,18 @@ Details:
 Any placeholder text to use. Defaults to an automatically-localized placedholder
 string.
 
-## value
+### value
 The text to show in the input.
 
 **WARNING**: You cannot bind to this. To receive data out of this component,
 listen for the `place_changed` event.
+
+### required
+Require a value to be entered.
+
+### pattern
+Specifies a regular expression that is used for validation upon form submission.
+
 
 ## Events
 
