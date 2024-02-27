@@ -43,7 +43,7 @@ function emptyLocationField() {
 }
 
 function hasLocationData(place) {
-  const fieldsToLookFor = (options && options.fields) || ['geometry']
+  const fieldsToLookFor = (options && options.fields && options.fields.indexOf('ALL') === -1) || ['geometry']
   return place.hasOwnProperty(fieldsToLookFor[0])
 }
 
