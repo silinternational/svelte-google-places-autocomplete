@@ -43,6 +43,7 @@ export function loadGooglePlacesLibrary(apiKey, callback) {
   const element = document.createElement('script')
   element.async = true
   element.defer = true
+  element.onload = onLibraryLoaded
   element.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places&loading=async&callback=Function.prototype`
   element.type = 'text/javascript'
 
