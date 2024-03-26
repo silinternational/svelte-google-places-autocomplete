@@ -7,7 +7,7 @@ import { get, writable } from 'svelte/store'
 export default writable([
   {
     name: `Type something, see suggestions, click on one`,
-    setup: async () => await type('new').then(waitForSuggestions),
+    setup: async () => await type('new york').then(waitForSuggestions),
     go: () => showText('Please click on the first suggestion', 'command'),
     expected: 'New York, NY, USA',
   },
@@ -19,7 +19,7 @@ export default writable([
   },
   {
     name: `Type something, see suggestions, don't select any, hit Tab`,
-    setup: async () => await type('new').then(waitForSuggestions),
+    setup: async () => await type('new york').then(waitForSuggestions),
     go: () => hitKey('Tab', 0, 9),
     expected: 'New York, NY, USA',
   },
@@ -30,7 +30,6 @@ export default writable([
       await waitForSuggestions()
       return hitKey('Enter', 0, 13)
     },
-    
     // Since this test shouldn't trigger a place_changed event, explicitly check the results.
     go: () => hitKey('Tab', 0, 9).then(checkTestResultAfterAMoment),
     expected: 'Atlanta, GA, USA',
@@ -38,11 +37,10 @@ export default writable([
   {
     name: `Type something, see suggestions, don't select any, hit Enter, hit Enter`,
     setup: async () => {
-      await type('new')
+      await type('new york')
       await waitForSuggestions()
       return hitKey('Enter', 0, 13)
     },
-    
     // Since this test shouldn't trigger a place_changed event, explicitly check the results.
     go: () => hitKey('Enter', 0, 13).then(checkTestResultAfterAMoment),
     expected: 'New York, NY, USA',
@@ -64,7 +62,7 @@ export default writable([
     name: `Type something, see suggestions, don't select any, hit Enter, ` +
           `type something else, see no suggestions, hit Enter`,
     setup: async () => {
-      await type('new')
+      await type('new york')
       await waitForSuggestions()
       await hitKey('Enter', 0, 13)
       await type('zzzzzzzz')
@@ -86,7 +84,7 @@ export default writable([
   {
     name: `Type something, see suggestions, select one via Arrow keys, hit Tab`,
     setup: async () => {
-      await type('new')
+      await type('new york')
       await waitForSuggestions()
       return hitKey('ArrowDown', 0, 40)
     },
@@ -114,7 +112,6 @@ export default writable([
   {
     name: `Pass in a value`,
     setup: async () => passInValue('Atlanta, GA, USA'),
-    
     // Since this test shouldn't trigger a place_changed event, explicitly check the results.
     go: () => checkTestResultAfterAMoment(),
     expected: 'Atlanta, GA, USA',
