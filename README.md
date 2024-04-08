@@ -95,5 +95,3 @@ The tests are defined in `test/tests.js`. See that file for examples.
 ## Contributing
 
 Please use the included prettier config for formatting. You can also run `make format` to format all files with prettier.
-
-When creating a pull request please target the develop branch.
