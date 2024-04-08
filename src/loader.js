@@ -31,20 +31,22 @@ export function loadGooglePlacesLibrary(apiKey, callback) {
     callback()
     return
   }
-  
+
   callback && callbacks.push(callback)
-  
+
   if (isLoadingLibrary) {
     return
   }
-  
+
   isLoadingLibrary = true
-  
+
   const element = document.createElement('script')
   element.async = true
   element.defer = true
   element.onload = onLibraryLoaded
-  element.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(apiKey)}&libraries=places&callback=Function.prototype`
+  element.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(
+    apiKey
+  )}&libraries=places&callback=Function.prototype`
   element.type = 'text/javascript'
 
   document.head.appendChild(element)
@@ -53,7 +55,7 @@ export function loadGooglePlacesLibrary(apiKey, callback) {
 function onLibraryLoaded() {
   isLoadingLibrary = false
   let callback
-  while (callback = callbacks.pop()) {
+  while ((callback = callbacks.pop())) {
     callback()
   }
 }
