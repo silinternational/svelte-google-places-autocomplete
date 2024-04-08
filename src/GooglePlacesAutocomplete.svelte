@@ -7,7 +7,7 @@ export let options = undefined
 export let placeholder = undefined
 export let value = ''
 export let required = false
-export let pattern = ''
+export let pattern = undefined
 
 const dispatch = createEventDispatcher()
 
