@@ -6,8 +6,8 @@ export let apiKey
 export let options = undefined
 export let placeholder = undefined
 export let value = ''
-export let required = false;
-export let pattern = undefined;
+export let required = false
+export let pattern = undefined
 
 const dispatch = createEventDispatcher()
 
@@ -28,7 +28,7 @@ onMount(() => {
       if (hasLocationData(place)) {
         setSelectedLocation({
           place: place,
-          text: inputField.value
+          text: inputField.value,
         })
       }
     })
@@ -82,10 +82,7 @@ function onKeyDown(event) {
 function selectFirstSuggestion() {
   // Simulate the 'down arrow' key in order to select the first suggestion:
   // https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events
-  const simulatedEvent = new KeyboardEvent(
-    'keydown',
-    { key: 'ArrowDown', code: 'ArrowDown', keyCode: 40 }
-  )
+  const simulatedEvent = new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown', keyCode: 40 })
   inputField.dispatchEvent(simulatedEvent)
 }
 
@@ -99,5 +96,13 @@ function doesNotMatchSelectedLocation(value) {
 }
 </script>
 
-<input bind:this={inputField} class={$$props.class} on:change={onChange}
-       on:keydown={onKeyDown} {placeholder} {value} {required} {pattern}/>
+<input
+  bind:this={inputField}
+  class={$$props.class}
+  on:change={onChange}
+  on:keydown={onKeyDown}
+  {placeholder}
+  {value}
+  {required}
+  {pattern}
+/>

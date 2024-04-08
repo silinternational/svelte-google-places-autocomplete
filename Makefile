@@ -11,3 +11,6 @@ test: build
 clean:
 	npm prune
 	npm run clean
+
+format:
+	npm run format
