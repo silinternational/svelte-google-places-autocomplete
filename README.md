@@ -91,3 +91,7 @@ The tests are defined in `test/tests.js`. See that file for examples.
 ## Install with [npm](https://www.npmjs.com/package/@silintl/svelte-google-places-autocomplete)
 
     $ npm install @silintl/svelte-google-places-autocomplete
+
+## Contributing
+
+Please use the included prettier config for formatting. You can also run `make format` to format all files with prettier.
