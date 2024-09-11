@@ -1,3 +1,5 @@
+# WARNING: This repo is no longer maintained
+
 # svelte-google-places-autocomplete
 
 A minimal port of the
